@@ -5,7 +5,8 @@ services:
     build: .
     container_name: face-recognition-app
     restart: on-failure
-    command: sh -c "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    command: sh -c "alembic upgrade head &&
+                    uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
     volumes:
       - .:/face-recognition
     ports:
