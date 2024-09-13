@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  app:
+    build: .
+    container_name: face-recognition-app
+    restart: on-failure
+    command: sh -c "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - .:/face-recognition
+    ports:
+      - "8015:8000"
