@@ -122,8 +122,8 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-envs/*
-!envs/.gitkeep
+face_recognition/core/settings/envs/*
+!face_recognition/core/settings/envs/.gitkeep
 !.gitkeep
 venv/
 venv.bak/
