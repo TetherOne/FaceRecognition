@@ -11,7 +11,7 @@ class Task(
     IdIntPkMixin,
     CreateTimeMixin,
 ):
-    pass
+    task_images: Mapped[list["TaskImage"]] = relationship(back_populates="task")
 
 
 class TaskImage(

@@ -10,6 +10,16 @@ class DatabaseConfig(BaseModel):
     max_overflow: int = 8
 
 
+class APIPrefix(BaseModel):
+    prefix: str = "/api"
+    version: str = "/v1"
+    notes: str = "/tasks"
+
+    @property
+    def full_prefix(self) -> str:
+        return f"{self.prefix}{self.version}"
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=("envs/app.env",),
@@ -18,6 +28,7 @@ class Settings(BaseSettings):
         env_prefix="TEVIAN__",
         arbitrary_types_allowed=True,
     )
+    api: APIPrefix = APIPrefix()
     db: DatabaseConfig
 
 

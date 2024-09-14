@@ -15,6 +15,7 @@ sqlalchemy = {extras = ["asyncio"], version = "^2.0.34"}
 alembic = "^1.13.2"
 pydantic-settings = "^2.5.2"
 asyncpg = "^0.29.0"
+orjson = "^3.10.7"
 
 
 [tool.poetry.group.dev.dependencies]
