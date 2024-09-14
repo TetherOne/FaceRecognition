@@ -1,7 +1,13 @@
-from sqlalchemy import DECIMAL, CheckConstraint, String, ForeignKey
+from typing import TYPE_CHECKING
+
+from sqlalchemy import DECIMAL, CheckConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from face_recognition.core.database.models.base import Base
 from face_recognition.core.database.models.mixins import IdIntPkMixin, CreateTimeMixin
+
+
+if TYPE_CHECKING:
+    from face_recognition.core.database.models import TaskImage
 
 
 class Task(
@@ -27,12 +33,3 @@ class Task(
         CheckConstraint("average_male_age >= 0"),
         CheckConstraint("average_female_age >= 0"),
     )
-
-
-class TaskImage(
-    Base,
-    IdIntPkMixin,
-):
-    name: Mapped[str] = mapped_column(String(256))
-    task_id: Mapped[int] = mapped_column(ForeignKey("tasks.id"))
-    task: Mapped["Task"] = relationship("Task", back_populates="images")

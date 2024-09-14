@@ -1,8 +1,8 @@
 """task model
 
-Revision ID: 8887b7c7affa
+Revision ID: c1f4ce4defab
 Revises:
-Create Date: 2024-09-14 17:44:16.537495
+Create Date: 2024-09-14 23:58:37.898819
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = "8887b7c7affa"
+revision: str = "c1f4ce4defab"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
