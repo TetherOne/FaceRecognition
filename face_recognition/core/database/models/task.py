@@ -13,10 +13,10 @@ class Task(
     men: Mapped[int | None]
     women: Mapped[int | None]
     average_male_age: Mapped[float | None] = mapped_column(
-        DECIMAL(precision=10, scale=1)
+        DECIMAL(precision=4, scale=1)
     )
     average_female_age: Mapped[float | None] = mapped_column(
-        DECIMAL(precision=10, scale=1)
+        DECIMAL(precision=4, scale=1)
     )
 
     __table_args__ = (
