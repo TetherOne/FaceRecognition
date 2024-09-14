@@ -1,8 +1,8 @@
 """task model
 
-Revision ID: c11851eebabf
+Revision ID: 14bb18e99068
 Revises:
-Create Date: 2024-09-14 15:49:21.727311
+Create Date: 2024-09-14 17:39:52.227626
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = "c11851eebabf"
+revision: str = "14bb18e99068"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -35,6 +35,11 @@ def upgrade() -> None:
             server_default=sa.text("now()"),
             nullable=False,
         ),
+        sa.CheckConstraint("average_female_age >= 0"),
+        sa.CheckConstraint("average_male_age >= 0"),
+        sa.CheckConstraint("faces >= 0"),
+        sa.CheckConstraint("men >= 0"),
+        sa.CheckConstraint("women >= 0"),
         sa.PrimaryKeyConstraint("id"),
     )
 
