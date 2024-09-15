@@ -9,7 +9,6 @@ from face_recognition.core.database.models.mixins import IdIntPkMixin
 
 if TYPE_CHECKING:
     from face_recognition.core.database.models import Task
-
     from face_recognition.core.database.models import ImageFace
 
 
