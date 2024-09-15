@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from face_recognition.api.recognition.task_queries import load_task_relations
 from face_recognition.core.database.models import Task
+from face_recognition.tools.utils import delete_images_from_task_images
 
 
 async def get_tasks(
@@ -21,8 +22,8 @@ async def get_task(
     task_id: int,
 ) -> Task | None:
     stmt = select(Task).filter(Task.id == task_id)
-    stmt = await load_task_relations(stmt)
-    result = await session.execute(stmt)
+    query_stmt = await load_task_relations(stmt)
+    result = await session.execute(query_stmt)
     return result.scalar_one_or_none()
 
 
@@ -30,5 +31,6 @@ async def delete_task(
     session: AsyncSession,
     task: Task,
 ) -> None:
+    await delete_images_from_task_images(task.images)
     await session.delete(task)
     await session.commit()
