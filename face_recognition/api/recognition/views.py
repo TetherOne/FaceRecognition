@@ -1,3 +1,4 @@
+import os
 from typing import Annotated, List
 
 import httpx
@@ -18,7 +19,7 @@ from face_recognition.core.database.models import (
 )
 from face_recognition.core.database.models.choices import GenderEnum
 from face_recognition.core.helpers.db_helper import db_helper
-from face_recognition.core.settings.config import settings
+from face_recognition.core.settings.config import settings, MEDIA_DIR
 
 router = APIRouter(tags=["Tasks"])
 
@@ -56,8 +57,17 @@ async def get_task(
 async def create_task(files: list[UploadFile]):
     async with httpx.AsyncClient() as client:
         responses = []
+        file_paths = []
+        file_names = []
+
         for file in files:
             file_bytes = await file.read()
+            file_name = file.filename
+            file_path = os.path.join(MEDIA_DIR, file_name)
+
+            with open(file_path, "wb") as f:
+                f.write(file_bytes)
+
             headers = {
                 "Authorization": f"Bearer {settings.service.token}",
                 "Content-Type": file.content_type,
@@ -66,6 +76,8 @@ async def create_task(files: list[UploadFile]):
                 settings.service.url, headers=headers, content=file_bytes
             )
             responses.append(response.json())
+            file_paths.append(file_path)
+            file_names.append(file_name)
 
     total_faces = 0
     total_men = 0
@@ -75,7 +87,9 @@ async def create_task(files: list[UploadFile]):
 
     task_images = []
 
-    for i, response in enumerate(responses):
+    for i, (response, file_path, file_name) in enumerate(
+        zip(responses, file_paths, file_names)
+    ):
         image_faces = []
 
         for face_data in response["data"]:
@@ -104,7 +118,7 @@ async def create_task(files: list[UploadFile]):
                 total_women += 1
                 total_female_age += age
 
-        task_image = TaskImage(name=f"Image {chr(65 + i)}", faces=image_faces)
+        task_image = TaskImage(name=file_name, image=file_path, faces=image_faces)
         task_images.append(task_image)
 
     avg_male_age = total_male_age / total_men if total_men > 0 else None

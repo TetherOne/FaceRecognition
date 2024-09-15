@@ -21,6 +21,7 @@ class ImageFaceSchema(BaseModel):
 
 class TaskImageSchema(BaseModel):
     name: str
+    image: str
     faces: list[ImageFaceSchema]
 
 

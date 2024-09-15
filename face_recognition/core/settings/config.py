@@ -1,5 +1,11 @@
+import os
+
 from pydantic import BaseModel, PostgresDsn
 from pydantic_settings import SettingsConfigDict, BaseSettings
+
+
+MEDIA_DIR = "media"
+os.makedirs(MEDIA_DIR, exist_ok=True)
 
 
 class DatabaseConfig(BaseModel):
