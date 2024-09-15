@@ -24,3 +24,11 @@ async def get_task(
     stmt = await load_task_relations(stmt)
     result = await session.execute(stmt)
     return result.scalar_one_or_none()
+
+
+async def delete_task(
+    session: AsyncSession,
+    task: Task,
+) -> None:
+    await session.delete(task)
+    await session.commit()

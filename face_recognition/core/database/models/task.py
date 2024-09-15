@@ -24,7 +24,10 @@ class Task(
     average_female_age: Mapped[float | None] = mapped_column(
         DECIMAL(precision=4, scale=1),
     )
-    images: Mapped[list["TaskImage"]] = relationship(back_populates="task")
+    images: Mapped[list["TaskImage"]] = relationship(
+        back_populates="task",
+        cascade="all, delete-orphan",
+    )
 
     __table_args__ = (
         CheckConstraint("faces >= 0"),

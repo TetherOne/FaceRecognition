@@ -19,4 +19,7 @@ class TaskImage(
     name: Mapped[str] = mapped_column(String(256))
     task_id: Mapped[int] = mapped_column(ForeignKey("tasks.id"))
     task: Mapped["Task"] = relationship(back_populates="images")
-    faces: Mapped[list["ImageFace"]] = relationship(back_populates="image")
+    faces: Mapped[list["ImageFace"]] = relationship(
+        back_populates="image",
+        cascade="all, delete-orphan",
+    )

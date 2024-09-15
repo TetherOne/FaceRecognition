@@ -7,6 +7,7 @@ from starlette import status
 from face_recognition.api.recognition import crud
 from face_recognition.api.recognition.dependencies import task_by_id
 from face_recognition.api.recognition.schemas import TaskSchema
+from face_recognition.core.database.models import Task
 from face_recognition.core.helpers.db_helper import db_helper
 
 router = APIRouter(tags=["Tasks"])
@@ -35,3 +36,17 @@ async def get_task(
     task: TaskSchema = Depends(task_by_id),
 ):
     return task
+
+
+@router.delete(
+    "/delete/{task_id}/",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+async def delete_resume(
+    session: Annotated[
+        AsyncSession,
+        Depends(db_helper.session_getter),
+    ],
+    task: Task = Depends(task_by_id),
+) -> None:
+    await crud.delete_task(session=session, task=task)
