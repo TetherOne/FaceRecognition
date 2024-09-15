@@ -31,7 +31,7 @@ async def get_tasks(
     response_model=TaskSchema,
     status_code=status.HTTP_200_OK,
 )
-async def get_resume(
+async def get_task(
     task: TaskSchema = Depends(task_by_id),
 ):
     return task

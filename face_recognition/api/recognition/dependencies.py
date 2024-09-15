@@ -18,7 +18,7 @@ async def task_by_id(
 ) -> TaskSchema:
     """
     Вспомогательная функция для
-    получения Tag по id
+    получения Task по id
     """
     task = await crud.get_task(
         session=session,

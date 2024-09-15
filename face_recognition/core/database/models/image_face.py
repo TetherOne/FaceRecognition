@@ -21,7 +21,7 @@ class ImageFace(
     image_id: Mapped[int] = mapped_column(ForeignKey("task_images.id"))
     image: Mapped["TaskImage"] = relationship(back_populates="faces")
     bbox: Mapped["BoundingBoxFace"] = relationship(
-        back_populates="task_image_face",
+        back_populates="face",
         uselist=False,
         cascade="all, delete-orphan",
     )
