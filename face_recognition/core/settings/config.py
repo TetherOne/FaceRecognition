@@ -20,6 +20,11 @@ class APIPrefix(BaseModel):
         return f"{self.prefix}{self.version}"
 
 
+class TevianAPISettings(BaseModel):
+    url: str
+    token: str
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=("envs/app.env",),
@@ -30,6 +35,7 @@ class Settings(BaseSettings):
     )
     api: APIPrefix = APIPrefix()
     db: DatabaseConfig
+    service: TevianAPISettings
 
 
 settings = Settings()

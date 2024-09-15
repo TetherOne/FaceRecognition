@@ -1,6 +1,7 @@
 from typing import Annotated, List
 
-from fastapi import APIRouter, Depends
+import httpx
+from fastapi import APIRouter, Depends, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 
@@ -9,6 +10,7 @@ from face_recognition.api.recognition.dependencies import task_by_id
 from face_recognition.api.recognition.schemas import TaskSchema
 from face_recognition.core.database.models import Task
 from face_recognition.core.helpers.db_helper import db_helper
+from face_recognition.core.settings.config import settings
 
 router = APIRouter(tags=["Tasks"])
 
@@ -38,11 +40,32 @@ async def get_task(
     return task
 
 
+@router.post(
+    "/create-task",
+    status_code=status.HTTP_201_CREATED,
+)
+async def create_task(files: list[UploadFile]):
+    async with httpx.AsyncClient() as client:
+        responses = []
+        for file in files:
+            file_bytes = await file.read()
+            headers = {
+                "Authorization": f"Bearer {settings.service.token}",
+                "Content-Type": file.content_type,
+            }
+            response = await client.post(
+                settings.service.url, headers=headers, content=file_bytes
+            )
+            responses.append(response.json())
+
+        return responses
+
+
 @router.delete(
-    "/delete/{task_id}/",
+    "/delete/{task_id}",
     status_code=status.HTTP_204_NO_CONTENT,
 )
-async def delete_resume(
+async def delete_task(
     session: Annotated[
         AsyncSession,
         Depends(db_helper.session_getter),

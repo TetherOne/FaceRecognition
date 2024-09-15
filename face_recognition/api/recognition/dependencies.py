@@ -16,14 +16,7 @@ async def task_by_id(
         Depends(db_helper.session_getter),
     ],
 ) -> TaskSchema:
-    """
-    Вспомогательная функция для
-    получения Task по id
-    """
-    task = await crud.get_task(
-        session=session,
-        task_id=task_id,
-    )
+    task = await crud.get_task(session=session, task_id=task_id)
     if task is not None:
         return task
     raise NotFound()
