@@ -37,3 +37,8 @@ class TaskSchema(TaskBaseSchema):
     id: int
     created_at: datetime
     images: list[TaskImageSchema]
+
+
+class CreateTaskSchema(TaskBaseSchema):
+    id: int
+    created_at: datetime

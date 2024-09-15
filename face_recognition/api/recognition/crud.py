@@ -27,6 +27,16 @@ async def get_task(
     return result.scalar_one_or_none()
 
 
+async def create_task(
+    session: AsyncSession,
+) -> Task:
+    new_task = Task()
+    session.add(new_task)
+    await session.commit()
+    await session.refresh(new_task)
+    return new_task
+
+
 async def delete_task(
     session: AsyncSession,
     task: Task,

@@ -6,7 +6,7 @@ from starlette import status
 
 from face_recognition.api.recognition import crud
 from face_recognition.api.recognition.dependencies import task_by_id
-from face_recognition.api.recognition.schemas import TaskSchema
+from face_recognition.api.recognition.schemas import TaskSchema, CreateTaskSchema
 from face_recognition.core.database.models import (
     Task,
 )
@@ -38,6 +38,20 @@ async def get_task(
     task: TaskSchema = Depends(task_by_id),
 ):
     return task
+
+
+@router.post(
+    "/tasks/create",
+    response_model=CreateTaskSchema,
+    status_code=status.HTTP_201_CREATED,
+)
+async def create_task(
+    session: Annotated[
+        AsyncSession,
+        Depends(db_helper.session_getter),
+    ],
+):
+    return await crud.create_task(session=session)
 
 
 @router.delete(
