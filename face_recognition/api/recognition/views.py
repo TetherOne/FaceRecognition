@@ -63,7 +63,7 @@ async def create_task(
 
 
 @router.delete(
-    "/delete/{task_id}",
+    "/{task_id}/delete",
     status_code=status.HTTP_204_NO_CONTENT,
 )
 async def delete_task(
