@@ -1,6 +1,8 @@
 import os
 from decimal import Decimal
 from typing import TYPE_CHECKING
+
+import aiofiles
 import httpx
 from fastapi import UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -41,8 +43,8 @@ async def send_image_to_external_api(image_path: str, token: str) -> dict:
     }
 
     async with httpx.AsyncClient() as client:
-        with open(image_path, "rb") as img_file:
-            file_content = img_file.read()
+        async with aiofiles.open(image_path, "rb") as img_file:
+            file_content = await img_file.read()
             response = await client.post(
                 external_api_url, headers=headers, content=file_content
             )
