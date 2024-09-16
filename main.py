@@ -11,7 +11,6 @@ app = FastAPI(
 app.mount(
     "/media",
     StaticFiles(directory="media"),
-    name="media",
 )
 
 app.include_router(router)
