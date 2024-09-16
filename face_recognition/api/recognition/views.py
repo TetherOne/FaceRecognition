@@ -27,6 +27,7 @@ router = APIRouter(tags=["Tasks"])
     "/tasks",
     response_model=List[TaskSchema],
     status_code=status.HTTP_200_OK,
+    summary="Getting a list of tasks",
 )
 async def get_tasks(
     session: Annotated[
@@ -41,6 +42,7 @@ async def get_tasks(
     "/tasks/{task_id}",
     response_model=TaskSchema,
     status_code=status.HTTP_200_OK,
+    summary="Getting a task by id",
 )
 async def get_task(
     task: TaskSchema = Depends(task_by_id),
@@ -52,6 +54,7 @@ async def get_task(
     "/tasks/create",
     response_model=CreateTaskSchema,
     status_code=status.HTTP_201_CREATED,
+    summary="Create a task",
 )
 async def create_task(
     session: Annotated[
@@ -65,6 +68,7 @@ async def create_task(
 @router.delete(
     "/{task_id}/delete",
     status_code=status.HTTP_204_NO_CONTENT,
+    summary="Delete a task by id",
 )
 async def delete_task(
     session: Annotated[
@@ -80,6 +84,7 @@ async def delete_task(
     "/tasks/{task_id}/add-image",
     response_model=TaskSchema,
     status_code=status.HTTP_201_CREATED,
+    summary="Add an image to a task",
 )
 async def add_image_to_task(
     task_id: int,
