@@ -12,12 +12,23 @@
 ```
 git clone https://github.com/TetherOne/FaceRecognition.git
 ```
-#### 2. Соберите проект
+#### 2. Перейдите в папку проекта
+```
+cd FaceRecognition
+```
+#### 3. Соберите проект
 ```
 docker-compose build
 docker-compose up
 ```
-#### 3. Перейдите в браузер по ссылке:
+В случае ошибки ниже, заменить порты сервисов в docker-compose.yaml, например с "5445:5432" на "5446:5432"
+```
+Gracefully stopping... (press Ctrl+C again to force)
+Error response from daemon: driver failed programming external connectivity on endpoint
+face-recognition-db (e8c24ee790458791d4a3151f4fd8667bd3827f647afe532da66d4748d1f76efd):
+listen tcp4 0.0.0.0:5430: bind: address already in use
+```
+#### 4. Перейдите в браузер по ссылке:
 ```
 http://127.0.0.1:8015/docs
 ```
