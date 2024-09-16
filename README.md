@@ -13,9 +13,6 @@
 git clone https://github.com/TetherOne/FaceRecognition.git
 ```
 #### 2. Перейдите в папку проекта, где лежит docker-compose.yaml
-```
-cd FaceRecognition
-```
 #### 3. Укажите переменные окружения в папке envs
 ```
 - файл app.env
