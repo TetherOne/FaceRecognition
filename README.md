@@ -12,7 +12,7 @@
 ```
 git clone https://github.com/TetherOne/FaceRecognition.git
 ```
-#### 2. Перейдите в папку проекта
+#### 2. Перейдите в папку проекта, где лежит docker-compose.yaml
 ```
 cd FaceRecognition
 ```
