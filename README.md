@@ -28,19 +28,24 @@ POSTGRES_DB=
 POSTGRES_USER=
 POSTGRES_PASSWORD=
 ```
-#### 4. Соберите проект
+#### 4. В случае, если вы хотите изменять и коммитить изменения проекта - используйте pre-commit
+```
+pip install pre-commit
+pre-commit install
+```
+#### 5. Соберите проект
 ```
 docker-compose build
 docker-compose up
 ```
-В случае ошибки ниже, заменить порты сервисов в docker-compose.yaml, например с "5430:5432" на "5445:5432"
+В случае ошибки ниже, заменить порты сервисов в docker-compose.yaml, например, с "5430:5432" на "5445:5432"
 ```
 Gracefully stopping... (press Ctrl+C again to force)
 Error response from daemon: driver failed programming external connectivity on endpoint
 face-recognition-db (e8c24ee790458791d4a3151f4fd8667bd3827f647afe532da66d4748d1f76efd):
 listen tcp4 0.0.0.0:5430: bind: address already in use
 ```
-#### 5. Перейдите в браузер по ссылке:
+#### 6. Перейдите в браузер по ссылке:
 ```
 http://127.0.0.1:8015/docs
 ```
