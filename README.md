@@ -21,7 +21,7 @@ cd FaceRecognition
 docker-compose build
 docker-compose up
 ```
-В случае ошибки ниже, заменить порты сервисов в docker-compose.yaml, например с "5445:5432" на "5446:5432"
+В случае ошибки ниже, заменить порты сервисов в docker-compose.yaml, например с "5430:5432" на "5445:5432"
 ```
 Gracefully stopping... (press Ctrl+C again to force)
 Error response from daemon: driver failed programming external connectivity on endpoint
